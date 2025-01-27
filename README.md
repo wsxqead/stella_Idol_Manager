@@ -1,0 +1,1 @@
+# stella_Idol_Manager
