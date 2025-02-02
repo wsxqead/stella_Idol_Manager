@@ -25,25 +25,31 @@ const TrainingModal: React.FC<TrainingModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h3 className="text-xl font-bold mb-4">🎯 {member.name} 훈련하기</h3>
-        {Object.keys(trainingOptions).map((trainingType) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-4">
+          🎯 {member.name} 훈련하기
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 mb-4">
+          {Object.keys(trainingOptions).map((trainingType) => (
+            <button
+              key={trainingType}
+              className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 m-1"
+              onClick={() => handleTraining(trainingType)}
+              disabled={member.stamina <= 0}
+            >
+              {trainingType}
+            </button>
+          ))}
+        </div>
+        <div className="text-center">
           <button
-            key={trainingType}
-            className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600 m-1"
-            onClick={() => handleTraining(trainingType)}
-            disabled={member.stamina <= 0}
+            className="bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600 mt-4"
+            onClick={onClose}
           >
-            {trainingType}
+            닫기
           </button>
-        ))}
-        <button
-          className="bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600 mt-4"
-          onClick={onClose}
-        >
-          닫기
-        </button>
+        </div>
       </div>
     </div>
   );

@@ -82,6 +82,13 @@ const CollabBroadcastModal: React.FC<CollabBroadcastModalProps> = ({
           : member
       )
     );
+
+    alert(
+      `🎶 ${selectedCollabMembers
+        .map((m) => m.name)
+        .join(", ")}의 ${songType} 이(가) 발매되었습니다!`
+    );
+    setSelectedCollabMembers([]); // 선택 초기화
   };
 
   return (

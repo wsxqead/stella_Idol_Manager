@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -29,7 +30,13 @@ export default function HomePage() {
 
       {/* 강지 캐릭터 애니메이션 */}
       <div className="mt-8 animate-bounce">
-        {/* <img src="/kangji.png" alt="강지" className="w-32 h-32" /> */}
+        <Image
+          src="/images/gangzi.png"
+          alt="강지"
+          width={320}
+          height={320}
+          className="w-32 h-32"
+        />
       </div>
     </div>
   );

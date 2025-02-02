@@ -4,6 +4,7 @@ const members: Member[] = [
   {
     id: "1",
     name: "리코",
+    image: "/images/members/riko.png",
     fans: 0,
     stamina: 100,
     vocal: 80,
@@ -23,6 +24,7 @@ const members: Member[] = [
   {
     id: "2",
     name: "유니",
+    image: "/images/members/yuni.png",
     fans: 0,
     stamina: 100,
     vocal: 60,
@@ -42,6 +44,7 @@ const members: Member[] = [
   {
     id: "3",
     name: "히나",
+    image: "/images/members/hina.png",
     fans: 0,
     stamina: 100,
     vocal: 50,
@@ -61,6 +64,7 @@ const members: Member[] = [
   {
     id: "4",
     name: "마시로",
+    image: "/images/members/shiro.png",
     fans: 0,
     stamina: 100,
     vocal: 55,
@@ -80,6 +84,7 @@ const members: Member[] = [
   {
     id: "5",
     name: "타비",
+    image: "/images/members/tabi.png",
     fans: 0,
     stamina: 100,
     vocal: 65,
@@ -99,6 +104,7 @@ const members: Member[] = [
   {
     id: "6",
     name: "리제",
+    image: "/images/members/lize.png",
     fans: 0,
     stamina: 100,
     vocal: 50,
@@ -118,6 +124,7 @@ const members: Member[] = [
   {
     id: "7",
     name: "시부키",
+    image: "/images/members/shibuki.png",
     fans: 0,
     stamina: 100,
     vocal: 50,
@@ -137,6 +144,7 @@ const members: Member[] = [
   {
     id: "8",
     name: "린",
+    image: "/images/members/rin.png",
     fans: 0,
     stamina: 100,
     vocal: 50,
@@ -156,6 +164,7 @@ const members: Member[] = [
   {
     id: "9",
     name: "나나",
+    image: "/images/members/nana.png",
     fans: 0,
     stamina: 100,
     vocal: 55,
