@@ -15,6 +15,7 @@ import BroadcastModal from "@/components/BroadcastModal";
 import RestModal from "@/components/RestModal";
 import FanEventModal from "@/components/FanEvent";
 import SongReleaseModal from "@/components/SongReleaseModal";
+import CollabBroadcastModal from "@/components/CollabBroadcastModal";
 
 export default function MembersPage() {
   const [selectedMembers, setSelectedMembers] = useState<Member[]>([]);
@@ -39,6 +40,8 @@ export default function MembersPage() {
 
   const [selectedSongReleaseMember, setSelectedSongReleaseMember] =
     useState<Member | null>(null);
+
+  const [isCollabModalOpen, setIsCollabModalOpen] = useState(false);
 
   // 스텔라이브 전체 팬 수 및 매출 계산
   const totalFans = selectedMembers.reduce(
@@ -303,16 +306,119 @@ export default function MembersPage() {
                   >
                     🎊 팬 이벤트 관리
                   </button>
+                  {/* 합동 방송 버튼 */}
+                  <button
+                    className="bg-blue-500 text-white p-3 rounded-lg font-bold hover:bg-blue-600"
+                    onClick={() => setIsCollabModalOpen(true)}
+                  >
+                    🎬 합동 방송 시작
+                  </button>
+
                   <button
                     className="bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600"
                     onClick={() => setSelectedRestMember(member)}
                   >
                     휴식
                   </button>
+
+                  {/* ✅ "상세 정보" 버튼만 2칸 차지하도록 수정 */}
+                  <button
+                    className="bg-indigo-500 text-white px-3 py-2 rounded hover:bg-indigo-600 col-span-2"
+                    onClick={() => setSelectedMember(member)}
+                  >
+                    📋 상세 정보
+                  </button>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* 상세 정보 */}
+          {selectedMember && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                <h2 className="text-3xl font-bold text-center mb-4 text-indigo-600">
+                  {selectedMember.name}의 능력치
+                </h2>
+
+                {/* 능력치 리스트 (2열 정렬) */}
+                <div className="grid grid-cols-2 gap-3 text-lg">
+                  <p>
+                    🎤 보컬:{" "}
+                    <span className="font-bold">{selectedMember.vocal}</span>
+                  </p>
+                  <p>
+                    💃 댄스:{" "}
+                    <span className="font-bold">{selectedMember.dance}</span>
+                  </p>
+                  <p>
+                    🎭 비주얼:{" "}
+                    <span className="font-bold">{selectedMember.visual}</span>
+                  </p>
+                  <p>
+                    🎼 작곡:{" "}
+                    <span className="font-bold">
+                      {selectedMember.composition}
+                    </span>
+                  </p>
+                  <p>
+                    🎛 프로듀싱:{" "}
+                    <span className="font-bold">
+                      {selectedMember.producing}
+                    </span>
+                  </p>
+                  <p>
+                    💪 스태미나:
+                    <span
+                      className={`font-bold ${
+                        selectedMember.stamina < 30
+                          ? "text-red-500"
+                          : "text-green-600"
+                      }`}
+                    >
+                      {selectedMember.stamina}
+                    </span>
+                  </p>
+                </div>
+
+                {/* 팬 수 & 곡 정보 */}
+                <div className="mt-4 text-lg">
+                  <p>
+                    📣 개별 팬 수:{" "}
+                    <span className="font-bold text-blue-500">
+                      {selectedMember.fans}
+                    </span>
+                  </p>
+                  {selectedMember.coverSongs > 0 && (
+                    <p>
+                      🎵 커버곡:{" "}
+                      <span className="font-bold">
+                        {selectedMember.coverSongs}개
+                      </span>
+                    </p>
+                  )}
+                  {selectedMember.originalSongs > 0 && (
+                    <p>
+                      🎶 오리지널곡:{" "}
+                      <span className="font-bold">
+                        {selectedMember.originalSongs}개
+                      </span>
+                    </p>
+                  )}
+                </div>
+
+                {/* 닫기 버튼 */}
+                <div className="text-center mt-6">
+                  <button
+                    className="bg-gray-500 text-white px-6 py-3 rounded-lg font-bold text-lg hover:bg-gray-600 w-full"
+                    onClick={() => setSelectedMember(null)}
+                  >
+                    닫기
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* 턴 진행 버튼 */}
           <div className="mt-6 text-center">
@@ -324,30 +430,8 @@ export default function MembersPage() {
             </button>
           </div>
 
-          {/* 상세 정보 */}
-          {selectedMember && (
-            <div className="mt-6 bg-white p-4 shadow-md rounded-lg">
-              <h4 className="text-2xl font-semibold">
-                {selectedMember.name}의 능력치
-              </h4>
-              <p>보컬: {selectedMember.vocal}</p>
-              <p>댄스: {selectedMember.dance}</p>
-              <p>비주얼: {selectedMember.visual}</p>
-              <p>작곡: {selectedMember.composition}</p>
-              <p>프로듀싱: {selectedMember.producing}</p>
-              <p>스태미나: {selectedMember.stamina}</p>
-              <p>📣 개별 팬 수: {selectedMember.fans}</p>
-              {selectedMember.coverSongs > 0 && (
-                <p>🎵 커버곡: {selectedMember.coverSongs}개</p>
-              )}
-              {selectedMember.originalSongs > 0 && (
-                <p>🎶 오리지널곡: {selectedMember.originalSongs}개</p>
-              )}
-            </div>
-          )}
-
           {/* 협업 멤버 선택 */}
-          <h3 className="text-xl font-semibold mb-3">
+          {/* <h3 className="text-xl font-semibold mb-3">
             👥 협업할 멤버 선택 (2명)
           </h3>
           <div className="grid grid-cols-3 gap-4">
@@ -372,10 +456,10 @@ export default function MembersPage() {
                 {member.name}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* 협업 방송 실행 */}
-          <h3 className="text-xl font-semibold mt-6">📺 협업 방송</h3>
+          {/* <h3 className="text-xl font-semibold mt-6">📺 협업 방송</h3>
           <div className="grid grid-cols-3 gap-4 mt-3">
             {Object.keys(collabBroadcasts).map((broadcastType) => (
               <button
@@ -386,10 +470,10 @@ export default function MembersPage() {
                 {broadcastType}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* 협업 곡 발매 실행 */}
-          <h3 className="text-xl font-semibold mt-6">🎵 듀엣 곡 발매</h3>
+          {/* <h3 className="text-xl font-semibold mt-6">🎵 듀엣 곡 발매</h3>
           <div className="grid grid-cols-3 gap-4 mt-3">
             {Object.keys(collabSongs).map((songType) => (
               <button
@@ -400,7 +484,7 @@ export default function MembersPage() {
                 {songType}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* 훈련 모달 */}
           {selectedTrainingMember && (
@@ -451,6 +535,14 @@ export default function MembersPage() {
               member={selectedSongReleaseMember}
               onClose={() => setSelectedSongReleaseMember(null)}
               onSongReleaseComplete={handleSongReleaseComplete}
+            />
+          )}
+
+          {/* 합동 방송 모달 */}
+          {isCollabModalOpen && (
+            <CollabBroadcastModal
+              members={selectedMembers}
+              onClose={() => setIsCollabModalOpen(false)}
             />
           )}
         </>
